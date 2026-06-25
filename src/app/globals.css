@@ -1,26 +1,109 @@
 @import "tailwindcss";
 
+/* Tailwind v4 class-based dark mode (ThemeProvider adds `.dark` on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f5f7;
+  --surface: #ffffff;
+  --surface-2: #fafafb;
+  --foreground: #0b0b0c;
+  --muted: #687184;
+  --border: #e6e7ea;
+  --ring: #f5821f;
+
+  /* Valiuz brand */
+  --brand: #f5821f;
+  --brand-strong: #d96c10;
+  --brand-foreground: #ffffff;
+
+  /* Per-lever colors */
+  --onsite: #2f6bff;
+  --offsite: #8b5cf6;
+  --instore: #f5821f;
+
+  --positive: #15a34a;
+  --negative: #dc2626;
+}
+
+.dark {
+  --background: #08080a;
+  --surface: #141417;
+  --surface-2: #1b1b1f;
+  --foreground: #ededee;
+  --muted: #9aa0ad;
+  --border: #26262c;
+  --ring: #f5821f;
+
+  --brand: #f5821f;
+  --brand-strong: #ffa04d;
+  --brand-foreground: #0a0a0b;
+
+  --onsite: #5b8cff;
+  --offsite: #a78bfa;
+  --instore: #fb923c;
+
+  --positive: #4ade80;
+  --negative: #f87171;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-foreground: var(--brand-foreground);
+
+  --color-onsite: var(--onsite);
+  --color-offsite: var(--offsite);
+  --color-instore: var(--instore);
+
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--brand) 28%, transparent);
+}
+
+/* Thin, theme-aware scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.35s ease-out both;
 }

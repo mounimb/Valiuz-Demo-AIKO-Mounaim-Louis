@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Valiuz Connect — Studio de Mesure Multi-Levier — Guide de la démo</title>
+<style>
+  :root{
+    --ink:#15202b; --muted:#5a6b7b; --line:#e2e8ee;
+    --brand:#0a4d8c; --accent:#e67817; --soft:#f4f8fb;
+    --green:#0f7a52;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  body{
+    font-family:"Segoe UI",-apple-system,Helvetica,Arial,sans-serif;
+    color:var(--ink); line-height:1.55; font-size:11pt; margin:0;
+  }
+  .page{padding:0;}
+  h1{font-size:25pt; line-height:1.12; margin:0 0 4px; color:var(--brand); letter-spacing:-.4px;}
+  h2{font-size:15pt; margin:30px 0 8px; color:var(--brand);
+     border-bottom:2px solid var(--line); padding-bottom:6px;}
+  h3{font-size:12.5pt; margin:20px 0 6px; color:var(--ink);}
+  .sub{font-size:12.5pt; color:var(--muted); margin:0 0 6px; font-weight:600;}
+  p{margin:7px 0;}
+  ul{margin:7px 0 7px 0; padding-left:20px;}
+  li{margin:4px 0;}
+  strong{color:var(--ink);}
+  .lede{background:var(--soft); border-left:4px solid var(--brand);
+        padding:14px 18px; border-radius:6px; margin:14px 0; font-size:11.5pt;}
+  .quote{background:#fff7ef; border-left:4px solid var(--accent);
+         padding:11px 16px; border-radius:6px; margin:12px 0; font-style:italic; color:#7a4a12;}
+  .msg{font-weight:600; color:var(--accent);}
+  table{border-collapse:collapse; width:100%; margin:12px 0; font-size:10pt;}
+  th,td{border:1px solid var(--line); padding:7px 10px; text-align:left; vertical-align:top;}
+  th{background:var(--brand); color:#fff; font-weight:600;}
+  tbody tr:nth-child(even){background:var(--soft);}
+  .act{border:1px solid var(--line); border-radius:8px; padding:4px 20px 16px;
+       margin:18px 0; background:#fff; box-shadow:0 1px 0 var(--line);}
+  .act h3{color:var(--brand); font-size:13.5pt;}
+  .tag{display:inline-block; font-size:8.5pt; font-weight:700; letter-spacing:.5px;
+       text-transform:uppercase; color:#fff; background:var(--accent);
+       padding:3px 9px; border-radius:20px; margin:14px 0 0;}
+  .meta{color:var(--muted); font-size:10pt; margin:2px 0 24px;}
+  .footer{margin-top:34px; padding-top:12px; border-top:1px solid var(--line);
+          color:var(--muted); font-size:9pt;}
+  .cols{display:flex; gap:16px; flex-wrap:wrap;}
+  .card{flex:1 1 30%; min-width:180px; background:var(--soft); border:1px solid var(--line);
+        border-radius:8px; padding:12px 14px;}
+  .card h4{margin:0 0 4px; color:var(--brand); font-size:11pt;}
+  .card p{margin:0; font-size:9.5pt; color:var(--muted);}
+  h2{page-break-after:avoid;} h3{page-break-after:avoid;}
+  .act,table,.lede,.quote{page-break-inside:avoid;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Valiuz Connect — Studio de Mesure Multi-Levier</h1>
+  <p class="sub">Guide de la démo : qu'est-ce que ça fait, et pourquoi</p>
+  <p class="meta">POC interactif de mesure des campagnes retail media · Next.js · 100 % navigateur, données simulées et reproductibles</p>
+
+  <h2>1. En une phrase</h2>
+  <div class="lede">
+    C'est un <strong>tableau de bord interactif</strong> qui prend <strong>une campagne publicitaire</strong>
+    diffusée sur <strong>3 leviers</strong> (le site e-commerce, le web extérieur, et les écrans en magasin)
+    et répond à la seule question qui compte pour un annonceur :
+    <br><br>
+    « <strong>Cette pub m'a-t-elle vraiment fait vendre plus — et où dois-je remettre mon prochain euro ?</strong> »
+  </div>
+  <p>Tout est calculé <strong>en direct</strong>, dans le navigateur, à partir de <strong>données simulées</strong>
+  (réalistes mais inventées). On peut bouger n'importe quel curseur et tout se recalcule instantanément.</p>
+
+  <h2>2. Le problème métier</h2>
+  <p>Valiuz est l'entité <strong>data + régie publicitaire</strong> du groupe Mulliez (Auchan, Decathlon,
+  Leroy Merlin, Boulanger…). Son produit phare, <strong>Valiuz Connect</strong>, <strong>relie la pub vue
+  par un client à ce qu'il achète réellement</strong> (en ligne ET en magasin), grâce à la
+  <strong>carte de fidélité</strong> et au <strong>ticket de caisse</strong>.</p>
+  <p>Une marque (ex. un fabricant de café vendu chez Auchan) veut savoir si ses 250 000 € de pub ont généré
+  des ventes <strong>en plus</strong> — pas juste des ventes qui auraient eu lieu de toute façon. C'est
+  exactement ce que cette démo mesure.</p>
+
+  <p class="sub" style="margin-top:14px;">Les 3 leviers d'une campagne</p>
+  <table>
+    <thead><tr><th>Levier</th><th>Où</th><th>Exemple</th></tr></thead>
+    <tbody>
+      <tr><td><strong>On-site</strong></td><td>Sur le site e-commerce de l'enseigne</td><td>Produit sponsorisé en haut des résultats sur decathlon.fr</td></tr>
+      <tr><td><strong>Off-site</strong><br>(extension d'audience)</td><td>Web ouvert / réseaux sociaux / TV connectée</td><td>Bannière ciblée sur un site d'actu, via les audiences Valiuz</td></tr>
+      <tr><td><strong>In-store / DOOH</strong></td><td>Écrans numériques en magasin</td><td>Pub sur les ~3 400 écrans Imediacenter en hypermarché</td></tr>
+    </tbody>
+  </table>
+  <p>La force de Valiuz : <strong>orchestrer et mesurer les trois ensemble, sans double comptage.</strong></p>
+
+  <h2>3. Ce que montre la démo : un récit en 3 actes</h2>
+  <p>La page se lit du haut vers le bas comme une histoire, qui suit la <strong>maturité d'un annonceur</strong> :
+  on part du chiffre « brut » et naïf, on le corrige avec la science, puis on passe à l'action.</p>
+
+  <div class="act">
+    <span class="tag">Acte 1 — le descriptif</span>
+    <h3>« Combien j'ai vendu ? »</h3>
+    <p>On affiche les chiffres classiques d'une campagne : <strong>dépense média</strong>, <strong>impressions</strong>,
+    <strong>reach</strong> (personnes touchées), <strong>ventes attribuées</strong>, <strong>nouveaux acheteurs</strong>.</p>
+    <ul>
+      <li>Le <strong>ROAS brut</strong> (Return On Ad Spend) = ventes attribuées ÷ budget. Ex : <strong>5,56×</strong>
+      = « pour 1 € dépensé, 5,56 € de ventes attribuées ».</li>
+      <li>Les <strong>8 indicateurs certifiés CESP</strong> (standard du marché : CPM, CPC, taux de clic…).</li>
+    </ul>
+    <p><strong>Le piège pédagogique :</strong> un curseur change la <strong>fenêtre d'attribution</strong>
+    (compter les ventes sur 7, 14 ou 30 jours). En l'élargissant, <strong>le ROAS brut grimpe</strong>…
+    simplement parce qu'on capte des ventes qui auraient eu lieu sans la pub. Preuve qu'un ROAS brut
+    <strong>n'est pas fiable</strong> : il dépend d'une convention de calcul.</p>
+    <div class="quote"><span class="msg">Message :</span> « Ce chiffre est corrélationnel. Il mélange l'effet de la pub et les ventes naturelles. »</div>
+  </div>
+
+  <div class="act">
+    <span class="tag">Acte 2 — le causal (pièce maîtresse)</span>
+    <h3>« Combien EN PLUS grâce à la pub ? »</h3>
+    <p>Le cœur du métier de Valiuz : la <strong>mesure d'incrémentalité</strong>. Une vraie expérience, comme en
+    médecine : on coupe l'audience cible en deux au hasard —</p>
+    <ul>
+      <li>un <strong>groupe exposé</strong> (il voit la pub),</li>
+      <li>un <strong>groupe contrôle / « holdout »</strong> (il ne la voit pas — le placebo).</li>
+    </ul>
+    <p>On compare le <strong>taux d'achat</strong> des deux groupes. La différence = <strong>l'effet réellement
+    causé par la pub</strong> (le <strong>lift</strong>). Le reste est <strong>organique</strong>, à ne pas créditer à la pub.</p>
+    <ul>
+      <li><strong>iROAS</strong> (ROAS incrémental) = ventes vraiment en plus ÷ budget. Ex : <strong>3,27×</strong> au lieu de 5,56×.</li>
+      <li>L'écart <strong>5,56× → 3,27× (≈ 41 %)</strong> est surligné en orange : la part que le ROAS brut <strong>surévaluait</strong>.</li>
+      <li><strong>Significativité statistique</strong> (p-value, test z) : peut-on faire confiance au résultat ?</li>
+      <li><strong>Double intervalle de confiance</strong> (bootstrap + test analytique) qui se confirment — signe de rigueur.</li>
+      <li><strong>Preuve de méthode :</strong> les données étant simulées, on connaît la « vraie » valeur injectée.
+      L'encart « estimé vs vérité-terrain » montre que la mesure <strong>retombe sur la vraie valeur</strong>.</li>
+      <li><strong>Uplift par segment :</strong> on distingue les <strong>« persuadables »</strong> (achètent grâce à la pub → à cibler)
+      des <strong>« sure-things »</strong> (auraient acheté de toute façon → budget gaspillé).</li>
+    </ul>
+    <div class="quote"><span class="msg">Message :</span> « Seule la donnée déterministe ticket ↔ fidélité de Valiuz permet de trancher : voici la vente que la pub a vraiment créée. »</div>
+  </div>
+
+  <div class="act">
+    <span class="tag">Acte 3 — le prescriptif</span>
+    <h3>« Où remettre mon prochain euro ? »</h3>
+    <p>Maintenant qu'on sait mesurer, on <strong>optimise</strong>.</p>
+    <ul>
+      <li><strong>Courbes de réponse (MMM — Marketing Mix Modeling) :</strong> pour chaque levier, « combien de
+      ventes en plus pour X € investis ». Courbes <strong>concaves</strong> (rendements décroissants). Deux notions :
+        <ul>
+          <li><strong>adstock</strong> : l'effet de la pub se prolonge quelques jours (mémoire) ;</li>
+          <li><strong>saturation</strong> : à force d'arroser la même audience, ça ne sert plus à rien.</li>
+        </ul>
+      </li>
+      <li>Le modèle est réellement <strong>entraîné</strong> sur la série de ventes et <strong>calibré sur
+      l'incrémentalité de l'Acte 2</strong> (comme Meta/Google recommandent de caler un MMM sur des lift tests).
+      Il <strong>retrouve les paramètres</strong> qui ont généré les données.</li>
+      <li><strong>Optimiseur de budget :</strong> propose la meilleure répartition entre les 3 leviers (en égalisant
+      les rendements marginaux). Ex : « passe de 55/30/15 à 49/2/49 → <strong>+13 % de ventes en plus, sans dépenser
+      un euro de plus</strong> ». Un bouton <strong>« Appliquer la reco »</strong> déplace réellement les curseurs.</li>
+    </ul>
+    <div class="quote"><span class="msg">Message :</span> « La mesure ne sert à rien si elle ne change pas la décision. Voilà la recommandation, chiffrée. »</div>
+  </div>
+
+  <h2>4. Les éléments transverses</h2>
+  <ul>
+    <li><strong>Détail multi-levier &amp; déduplication :</strong> chaque levier a son iROAS, son coût, sa contribution.
+    Le <strong>reach est dédupliqué</strong> : une personne touchée par les 3 leviers est comptée <strong>une seule fois</strong>.
+    L'audience off-site est <strong>plafonnée par le consentement RGPD</strong> (opt-in).</li>
+    <li><strong>Drive-to-store &amp; ROPO :</strong> effet d'une pub <strong>digitale</strong> sur un achat <strong>en magasin
+    physique</strong> (« Research Online, Purchase Offline »), par <strong>zone de chalandise</strong> (l'effet décroît avec la distance).</li>
+    <li><strong>🤖 Copilote IA :</strong> commente les résultats en langage clair et recommande une réallocation. Trois garde-fous :
+      <ul>
+        <li>il <strong>ne calcule jamais</strong> — il commente des chiffres déjà calculés (un « snapshot » d'agrégats,
+        jamais de données individuelles → cohérent <em>data clean room</em> / RGPD) ;</li>
+        <li>chaque <strong>chiffre cité est revérifié</strong> contre le snapshot (anti-hallucination) ;</li>
+        <li>sans connexion / clé OpenAI, il <strong>bascule sur une version locale déterministe</strong> → la démo ne casse jamais.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>5. Sous le capot (vulgarisé)</h2>
+  <ul>
+    <li><strong>Données simulées et « seedées » :</strong> un panel de <strong>~25 000 clients fictifs</strong>
+    (segment, fidélité, zone, exposition, achats). « Seedé » = reproductible : mêmes réglages → mêmes chiffres.</li>
+    <li><strong>Effet causal « vrai » injecté</strong> dans la simulation, puis <strong>ré-estimé à l'aveugle</strong>
+    par les outils de mesure → cela <strong>prouve</strong> que la méthode est correcte.</li>
+    <li><strong>100 % TypeScript, dans le navigateur :</strong> pas de serveur, pas de base, pas de Python. Méthodes
+    statistiques (bootstrap, moindres carrés, descente de coordonnées pour le MMM) <strong>recodées à la main</strong>.
+    Déploiement en un clic, fonctionne hors-ligne.</li>
+  </ul>
+
+  <h2>6. Petit glossaire</h2>
+  <table>
+    <thead><tr><th>Terme</th><th>Définition simple</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ROAS</strong></td><td>Ventes attribuées ÷ budget pub. <em>Corrélationnel</em> (inclut l'organique).</td></tr>
+      <tr><td><strong>iROAS</strong></td><td>ROAS <strong>incrémental</strong> : ventes vraiment en plus ÷ budget. <em>Causal</em>.</td></tr>
+      <tr><td><strong>Incrémentalité</strong></td><td>Le surcroît de ventes causé par la pub, mesuré exposés vs contrôle.</td></tr>
+      <tr><td><strong>Lift / uplift</strong></td><td>La différence de taux d'achat entre exposés et contrôle.</td></tr>
+      <tr><td><strong>Holdout / ghost ads</strong></td><td>Audience volontairement non exposée, pour servir de comparaison.</td></tr>
+      <tr><td><strong>Closed-loop</strong></td><td>Relier la pub vue à l'achat réel du même individu (via carte de fidélité).</td></tr>
+      <tr><td><strong>Reach dédupliqué</strong></td><td>Nb de personnes uniques touchées (comptées une fois, tous leviers confondus).</td></tr>
+      <tr><td><strong>New-to-brand</strong></td><td>Acheteurs nouveaux pour la marque (vs réachat).</td></tr>
+      <tr><td><strong>ROPO</strong></td><td>« Research Online, Purchase Offline » : vu en ligne, acheté en magasin.</td></tr>
+      <tr><td><strong>MMM</strong></td><td>Modèle reliant dépense → ventes, avec adstock et saturation.</td></tr>
+      <tr><td><strong>Adstock</strong></td><td>Effet rémanent de la pub sur quelques jours.</td></tr>
+      <tr><td><strong>Saturation</strong></td><td>Rendements décroissants : trop de pression pub ne rapporte plus.</td></tr>
+      <tr><td><strong>Bootstrap</strong></td><td>Méthode pour estimer une fourchette d'incertitude (intervalle de confiance).</td></tr>
+      <tr><td><strong>CESP</strong></td><td>Le tiers de confiance qui certifie les indicateurs retail media en France.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>7. Comment l'utiliser</h2>
+  <ul>
+    <li><strong>Choisir un scénario</strong> en haut (Decathlon, Auchan, Boulanger, Leroy Merlin) — chacun raconte
+    une histoire différente (ex : Boulanger = panier élevé, peu de volume → fourchettes larges ; Auchan = fort volume, in-store dominant).</li>
+    <li><strong>Bouger les curseurs</strong> à gauche : budget, durée, taille du groupe contrôle, fenêtre d'attribution,
+    répartition des leviers… tout se recalcule en direct.</li>
+    <li><strong>Suivre les 3 actes</strong> de haut en bas.</li>
+    <li><strong>Poser une question</strong> au copilote IA à droite (ou cliquer une suggestion).</li>
+    <li><strong>Basculer clair / sombre</strong> et « IA : local ancré » (pour montrer que ça marche sans connexion).</li>
+  </ul>
+
+  <h2>8. Ce que la démo démontre</h2>
+  <div class="cols">
+    <div class="card"><h4>Métier Valiuz</h4><p>3 leviers, mesure closed-loop déterministe, iROAS, drive-to-store, contrainte RGPD, certification CESP — le périmètre de Valiuz Connect.</p></div>
+    <div class="card"><h4>Rigueur Data Science</h4><p>Inférence causale (test/contrôle), intervalles de confiance, MMM fitté et calibré sur les lift tests, optimisation sous contrainte, honnêteté méthodologique.</p></div>
+    <div class="card"><h4>Profil AI Engineer</h4><p>Une couche GenAI utile mais maîtrisée : groundée, vérifiée, avec fallback. Pas un gadget.</p></div>
+    <div class="card"><h4>Sens produit</h4><p>Une vraie app qui tourne, déployable, lisible par un public mixte data + business, et qui ne casse pas le jour J.</p></div>
+  </div>
+
+  <div class="footer">
+    Valiuz Connect — Studio de Mesure Multi-Levier · Document explicatif généré pour la démo ·
+    Données simulées, reproductibles (seedées) · Application 100 % navigateur (Next.js / TypeScript).
+  </div>
+
+</div>
+</body>
+</html>
