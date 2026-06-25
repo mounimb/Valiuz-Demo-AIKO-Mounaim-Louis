@@ -30,7 +30,10 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        # `npm install` plutôt que `npm ci` : le lockfile est généré sous
+        # Windows et ne contient pas toutes les dépendances natives optionnelles
+        # propres à Linux (le runner CI). `npm install` les résout sur place.
+        run: npm install --no-audit --no-fund
 
       - name: Build static export
         env:
